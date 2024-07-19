@@ -24,7 +24,7 @@ export default function Cart() {
       return (
         acc +
         mapPizzaSize[curr.pizzaSize].price * curr.quantity +
-        totalAdditional
+        totalAdditional * curr.quantity
       );
     }, 0);
   }
@@ -54,7 +54,7 @@ export default function Cart() {
     return pizzaWithLongestPrepTime;
   }
   return (
-    <main className="flex h-screen w-screen flex-col items-center justify-center gap-2">
+    <main className="flex w-screen flex-col items-center justify-center gap-2">
       <h1>Total: R$ {calcTotalPrice(state).toFixed(2)}</h1>
       <h2>Tempo de preparo: {calcTotalTime(state)} min</h2>
       {state.cart.map((itemCart) => (

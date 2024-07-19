@@ -27,27 +27,35 @@ export default function CardItemCart({ item }: CardItemCartProps) {
     <Card>
       <CardHeader>
         <CardTitle>Pizza de {name}</CardTitle>
-        <CardDescription>R$ {price.toFixed(2)}</CardDescription>
+        <CardDescription>
+          Tamanho:
+          <span className="font-bold"> {pizzaSize.toLocaleUpperCase()}</span>
+        </CardDescription>
+        <CardDescription>Preço: R$ {price.toFixed(2)}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-2">
         <CardImage src={imgUrl} width={80} height={80} alt={name} />
         <CardDescription className="w-full">
-          <div>Observações:</div>
-          <ul>
-            {pizzaAdditional
-              .filter((add) => !!add)
-              .map((add) => (
-                <li key={add}>
-                  <span>{mapAdditional[add].description}</span>
-                  {!!mapAdditional[add].price && (
-                    <span>R$ {price.toFixed(2)}</span>
-                  )}
-                  {mapAdditional[add].time && (
-                    <span> | + {mapAdditional[add].time} min</span>
-                  )}
-                </li>
-              ))}
-          </ul>
+          {!!pizzaAdditional.length && (
+            <>
+              <div>Observações:</div>
+              <ul>
+                {pizzaAdditional
+                  .filter((add) => !!add)
+                  .map((add) => (
+                    <li key={add}>
+                      <span>{mapAdditional[add].description}: </span>
+                      {!!mapAdditional[add].price && (
+                        <span>R$ {mapAdditional[add].price.toFixed(2)}</span>
+                      )}
+                      {mapAdditional[add].time && (
+                        <span> | + {mapAdditional[add].time} min</span>
+                      )}
+                    </li>
+                  ))}
+              </ul>
+            </>
+          )}
         </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-center">
@@ -61,7 +69,7 @@ export default function CardItemCart({ item }: CardItemCartProps) {
         >
           <Minus />
         </Button>
-        {quantity}
+        <span className="m-2">{quantity}</span>
         <Button
           onClick={() =>
             dispatch({
